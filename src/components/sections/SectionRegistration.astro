@@ -1,8 +1,8 @@
 ---
-import Button from "./Button.astro";
-import ContentBox from "./ContentBox.astro";
-import InputCheckbox from "./forms/InputCheckbox.astro";
-import InputText from "./forms/InputText.astro";
+import Button from "../Button.astro";
+import ContentBox from "../ContentBox.astro";
+import InputCheckbox from "../forms/InputCheckbox.astro";
+import InputText from "../forms/InputText.astro";
 ---
 
 <section class="drw-section-registration">
@@ -18,11 +18,18 @@ import InputText from "./forms/InputText.astro";
       <InputText id="reg-form-mail" label="E-mail" />
       <InputText id="reg-form-phone" label="Телефон" />
 
-      <p class="_drw-reg-form-warning-message +typo-caption">Обратите внимание на правильность указания адреса электронной почты: на него придет подтверждение регистрации.</p>
+      <p class="_drw-reg-form-warning-message +typo-caption">
+        Обратите внимание на правильность указания адреса электронной почты: на
+        него придет подтверждение регистрации.
+      </p>
 
-      <p class="_drw-reg-form-message +typo-caption">Все поля обязательны для заполнения!</p>
+      <p class="_drw-reg-form-message +typo-caption">
+        Все поля обязательны для заполнения!
+      </p>
       <InputCheckbox id="reg-form-agreement-check">
-        Я даю согласие на обработку моих персональных данных  в соответствии с <a href="#link-to-policy">Политикой конфиденциальности</a>
+        Я даю согласие на обработку моих персональных данных в соответствии с <a
+          href="#link-to-policy">Политикой конфиденциальности</a
+        >
       </InputCheckbox>
       <Button variant="primary">Зарегистрироваться</Button>
     </form>
@@ -33,7 +40,7 @@ import InputText from "./forms/InputText.astro";
   .drw-section-registration {
     ._drw-section-registration-header {
       margin-bottom: var(--drw-gap-12);
-      filter: drop-shadow(0 0 15px #FFFFFF26);
+      filter: drop-shadow(0 0 15px #ffffff26);
 
       @media (width < 768px) {
         margin-bottom: var(--drw-gap-6);

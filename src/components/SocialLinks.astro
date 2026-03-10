@@ -1,5 +1,4 @@
 ---
-
 const socialLinks = [
   {
     title: "Telegram",
@@ -43,7 +42,11 @@ const socialLinks = [
   {
     socialLinks.map(({ title, href, icon }) => (
       <a {href} class="drw-social-link" target="_blank" {title}>
-        <img src={`/images/icons/icon-${icon}.svg`} alt={title} class="drw-social-link-icon" />
+        <img
+          src={`/images/icons/icon-${icon}.svg`}
+          alt={title}
+          class="drw-social-link-icon"
+        />
       </a>
     ))
   }

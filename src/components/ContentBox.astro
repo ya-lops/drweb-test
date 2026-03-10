@@ -6,8 +6,8 @@ export interface Props {
 const { dark = false } = Astro.props;
 ---
 
-<div class:list={['drw-content-box', { '+dark': dark }]}>
-  <slot/>
+<div class:list={["drw-content-box", { "+dark": dark }]}>
+  <slot />
 </div>
 
 <style is:global>
