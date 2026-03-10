@@ -1,0 +1,61 @@
+---
+import ContentBox from "./ContentBox.astro";
+import { Image } from "astro:assets";
+import ContactsImage from "@/images/web-heart.png";
+---
+
+<section class="drw-section-contacts">
+  <ContentBox dark>
+    <div class="_drw-section-contacts-inner">
+      <div class="_drw-section-contacts-text">
+        <header>
+          <h2 class="+typo-h3">Остались вопросы</h2>
+        </header>
+        <p>
+          Напишите нам <a href="mailto:marketing@drweb.com">marketing@drweb.com</a
+          >
+        </p>
+      </div>
+
+      <div class="_drw-section-contacts-image">
+        <Image
+          src={ContactsImage}
+          alt="Диалоговое облачко в центре которого зеленое сердце с логотипом Dr.web"
+        />
+      </div>
+    </div>
+  </ContentBox>
+</section>
+
+<style is:global>
+  .drw-section-contacts {
+    ._drw-section-contacts-inner {
+      display: flex;
+      align-items: center;
+      gap: var(--drw-gap-12);
+      font-weight: 500;
+
+      @media (width < 540px) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    ._drw-section-contacts-text {
+      flex: 1;
+
+      header {
+        margin-bottom: var(--drw-gap-3);
+      }
+    }
+
+    ._drw-section-contacts-image {
+      flex-shrink: 0;
+      filter: drop-shadow(4px 5px 12px rgba(49,49,49, .25));
+
+      @media (width < 768px) {
+        align-self: end;
+      }
+    }
+  }
+</style>

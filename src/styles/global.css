@@ -1,0 +1,163 @@
+@layer reset, base, classes;
+
+@layer reset {
+  /* Box sizing rules */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* Remove default margin */
+  :where(body, h1, h2, h3, h4, p, figure, blockquote, dl, dd) {
+    margin: 0;
+  }
+
+  ul:not([class]),
+  ol:not([class]) {
+    list-style: none;
+  }
+
+  html:focus-within {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100dvh;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+  }
+
+  a:not([class]) {
+    text-decoration-skip-ink: auto;
+  }
+
+  img,
+  picture {
+    max-width: 100%;
+    display: block;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer base {
+  :root {
+    --drw-color-acid: #5fd900;
+    --drw-color-accent: #69b42e;
+
+    --drw-color-text-primary: #000000;
+    --drw-color-text-secondary: #666666;
+    --drw-color-text-tertiary: #ffffff;
+    --drw-color-text-disabled: #b3b3b3;
+    --drw-color-text-primary-muted: #1a1a1a;
+    --drw-color-text-secondary-muted: #a6a6a6;
+
+    --drw-color-bg-primary: #ffffff;
+    --drw-color-bg-primary-inverse: #1a1a1a;
+
+    --drw-color-icon-primary: #f7fbf5;
+    --drw-color-icon-tertiary: #bfbfbf;
+
+    --drw-color-surface-primary: #ffffff;
+    --drw-color-surface-secondary: #212121;
+    --drw-color-surface-tertiary: #f8f8f8;
+
+    --drw-color-line-border: #cccccc;
+    --drw-color-line-edge: #4D4D4D;
+    --drw-color-line-border-focus: #000000;
+    --drw-color-status-error: #d02224;
+
+    --drw-gap-1: 4px;
+    --drw-gap-2: 8px;
+    --drw-gap-3: 12px;
+    --drw-gap-4: 16px;
+    --drw-gap-5: 20px;
+    --drw-gap-6: 24px;
+    --drw-gap-7: 28px;
+    --drw-gap-8: 32px;
+    --drw-gap-9: 36px;
+    --drw-gap-10: 40px;
+    --drw-gap-11: 44px;
+    --drw-gap-12: 48px;
+    --drw-gap-13: 52px;
+    --drw-gap-14: 56px;
+    --drw-gap-15: 60px;
+    --drw-gap-16: 64px;
+    --drw-gap-17: 68px;
+    --drw-gap-18: 72px;
+    --drw-gap-19: 76px;
+    --drw-gap-20: 80px;
+
+    --drw-radius-05: 2px;
+    --drw-radius-1: 5px;
+    --drw-radius-4: 15px;
+    --drw-radius-25: 100px;
+
+    --drw-font-family-heading:
+      "FreeSet", system-ui, -apple-system, BlinkMacSystemFont, Arial, Helvetica,
+      "Arial Unicode MS", sans-serif;
+    --drw-font-family-base:
+      "Roboto", system-ui, -apple-system, BlinkMacSystemFont, Arial, Helvetica,
+      "Arial Unicode MS", sans-serif;
+  }
+}
+
+@layer classes {
+  .\+color-acid {
+    color: var(--drw-color-acid);
+  }
+
+  .\+color-accent {
+    color: var(--drw-color-accent);
+  }
+
+  .\+text-center {
+    text-align: center;
+  }
+}
+
+html {
+  font-family: var(--drw-font-family-base);
+}
+
+body {
+  position: relative;
+  color: var(--drw-color-text-tertiary);
+  /* background-color: var(--drw-color-bg-primary-inverse); */
+  background-color: #161616;
+  
+}
+
+a:not([class]) {
+  color: var(--drw-color-accent);
+
+  &:hover {
+    color: color-mix(in oklab, var(--drw-color-accent), #fff 25%);
+  }
+}
+
+/* указаний по этому поводу не увидел */
+input[type="text"],
+button {
+  outline: none;
+}

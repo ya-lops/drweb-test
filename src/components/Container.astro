@@ -1,0 +1,36 @@
+---
+export interface Props {
+  size?: "l" | "m" | "s";
+}
+
+const { size = "l", ...attrs } = Astro.props;
+---
+
+<div class:list={["drw-container", "+size-" + size]} {...attrs}>
+  <slot />
+</div>
+
+<style is:global>
+  .drw-container {
+    margin-inline: auto;
+
+    &.\+size-l {
+      width: min(100%, 1168px + var(--drw-gap-4) * 2);
+      padding-inline: var(--drw-gap-4);
+    }
+
+    &.\+size-m {
+      width: min(100%, 805px + var(--drw-gap-3) * 2);
+      padding-inline: var(--drw-gap-3);
+    }
+
+    &.\+size-s {
+      width: min(100%, 568px + var(--drw-gap-3) * 2);
+      padding-inline: var(--drw-gap-3);
+
+      @media (width > 768px) {
+        width: min(100%, 668px + var(--drw-gap-3) * 2);
+      }
+    }
+  }
+</style>

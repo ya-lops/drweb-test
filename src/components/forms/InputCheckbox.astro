@@ -1,0 +1,90 @@
+---
+export interface Props {
+  id: string;
+  errorMsg?: string;
+}
+
+const { id, errorMsg = "Соглашайся, не пожалеешь", ...attrs } = Astro.props;
+---
+
+<div class="drw-checkbox">
+  <div class="_drw-checkbox-inner">
+    <div class="_drw-checkbox-fakebox">
+      <input class="_drw-checkbox-el" {id} type="checkbox" />
+    </div>
+    <label class="_drw-checkbox-label" for={id}>
+      <slot />
+    </label>
+  </div>
+  <p class="_drw-checkbox-error">{errorMsg}</p>
+</div>
+
+<style is:global>
+  .drw-checkbox {
+    ._drw-checkbox-inner {
+      display: flex;
+      align-items: center;
+      gap: var(--drw-gap-2);
+    }
+
+    ._drw-checkbox-el {
+      display: none;
+    }
+
+    ._drw-checkbox-fakebox {
+      flex-shrink: 0;
+      display: flex;
+      align-self: flex-start;
+      width: 16px;
+      height: 16px;
+      border: 1px solid var(--drw-color-line-border);
+      border-radius: var(--drw-radius-1);
+    }
+
+    & ._drw-checkbox-fakebox:has(:checked) {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      background: var(--drw-color-accent);
+      border-color: var(--drw-color-accent);
+
+      &::before {
+        content: '';
+        top: 0;
+        left: 0;
+        width: 6px;
+        height: 10px;
+        border-bottom: 2px solid var(--drw-color-bg-primary);
+        border-right: 2px solid var(--drw-color-bg-primary);
+        rotate: 45deg;
+        translate: 0 -10%;
+      }
+    }
+
+    ._drw-checkbox-label {
+      display: block;
+      font-size: 14px;
+      line-height: 18px;
+      margin-bottom: var(--drw-gap-2);
+      color: var(--drw-color-text-primary);
+      cursor: pointer;
+      user-select: none;
+
+      a {
+        color: inherit;
+      }
+    }
+
+    &:has(._drw-checkbox-label:hover) ._drw-checkbox-fakebox:has(:not(:checked)) {
+      border-color: var(--drw-color-line-border-focus);
+    }
+
+    ._drw-checkbox-error {
+      display: none;
+      margin-top: var(--drw-gap-2);
+    }
+  }
+</style>

@@ -1,0 +1,66 @@
+---
+
+const socialLinks = [
+  {
+    title: "Telegram",
+    href: "#telegram",
+    icon: "telegram",
+  },
+  {
+    title: "VK",
+    href: "#vk",
+    icon: "vk",
+  },
+  {
+    title: "Яндекс Дзен",
+    href: "#yadzen",
+    icon: "dzen",
+  },
+  {
+    title: "HABR",
+    href: "#habr",
+    icon: "habr",
+  },
+  {
+    title: "YouTube",
+    href: "#youtube",
+    icon: "youtube",
+  },
+  {
+    title: "Rutube",
+    href: "#rutube",
+    icon: "rutube",
+  },
+  {
+    title: "Одноклассники",
+    href: "#ok",
+    icon: "ok",
+  },
+];
+---
+
+<div class="drw-social-links">
+  {
+    socialLinks.map(({ title, href, icon }) => (
+      <a {href} class="drw-social-link" target="_blank" {title}>
+        <img src={`/images/icons/icon-${icon}.svg`} alt={title} class="drw-social-link-icon" />
+      </a>
+    ))
+  }
+</div>
+
+<style is:global>
+  .drw-social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--drw-gap-6);
+
+    a {
+      transition: scale 0.125s linear;
+
+      &:hover {
+        scale: 1.1;
+      }
+    }
+  }
+</style>

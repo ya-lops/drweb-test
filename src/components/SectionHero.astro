@@ -1,0 +1,96 @@
+---
+import Button from "./Button.astro";
+import IconDownload from "@/icons/download.svg";
+import TimeTag from "./TimeTag.astro";
+---
+
+<section class="drw-section-hero">
+  <div class="_drw-section-hero-inner">
+    <header class="_drw-section-hero-header">
+      <h1 class="+typo-h1">
+        Dr.Web VirLabConf <span class="+color-acid">2.0</span>
+      </h1>
+    </header>
+
+    <p class="_drw-section-hero-text +typo-h3">
+      Только для своих — <span class="+color-acid">закрытая конференция</span> антивирусной
+      лаборатории Dr.Web. Идеальное место для того, чтобы узнать
+      <span class="+color-acid">о&nbsp;новейших киберугрозах</span>, их эволюции
+      и способах защиты.
+    </p>
+
+    <div class="_drw-section-hero-description">
+      <div class="_drw-section-hero-description-tags">
+        <TimeTag date="4 апреля 2025" />
+        <TimeTag time="10:30" />
+      </div>
+
+      <p class="_drw-section-hero-address">
+        <span class="+color-acid">Bolshevik Loft,</span>
+        <span>Ленинградский проспект, 15, стр. 1</span>
+        <span>(БЦ «Большевик»)</span>, г. Москва
+      </p>
+    </div>
+    <Button
+      variant="contrast"
+      href="#link-to-event-pdf-file"
+      download="drweb-event-VirLabConf.pdf"
+      title="Скачать"
+    >
+      Программа мероприятия
+      <IconDownload slot="icon-after" />
+    </Button>
+  </div>
+</section>
+
+<style is:global>
+  .drw-section-hero {
+    padding-top: var(--drw-gap-4);
+
+    ._drw-section-hero-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--drw-gap-8);
+    }
+
+    ._drw-section-hero-header {
+      margin-bottom: var(--drw-gap-6);
+      transform-origin: top right;
+    }
+
+    ._drw-section-hero-text {
+      transform-origin: bottom left;
+    }
+
+    ._drw-section-hero-header,
+    ._drw-section-hero-text {
+      rotate: -2deg;
+      text-align: center;
+      filter: drop-shadow(0 0 15px #d4ffb326);
+    }
+
+    ._drw-section-hero-description {
+      max-width: 486px;
+
+      @media (width > 767px) {
+        span {
+          white-space: nowrap;
+        }
+      }
+    }
+
+    ._drw-section-hero-address {
+      margin-top: var(--drw-gap-3);
+      text-align: center;
+      font-weight: 500;
+    }
+
+    ._drw-section-hero-description-tags {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      justify-content: center;
+      gap: var(--drw-gap-3);
+    }
+  }
+</style>

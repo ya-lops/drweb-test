@@ -1,0 +1,68 @@
+---
+export interface Props {
+  href?: string;
+  variant?: "primary" | "contrast" | "outline";
+  download?: string;
+  title?: string;
+}
+
+const { href, variant = "primary", title } = Astro.props;
+
+const Tag = href ? "a" : "button";
+---
+
+<Tag class:list={["drw-button", `+${variant}`]} {...href && { href }} {title}>
+  <span><slot /></span>
+  <slot name="icon-after" />
+</Tag>
+
+<style is:global>
+  .drw-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--drw-gap-2);
+    min-height: 40px;
+    padding: var(--drw-gap-2) var(--drw-gap-4);
+    border: 2px solid var(--_btn-border-color, var(--drw-color-accent));
+    border-radius: var(--drw-radius-1);
+    background: var(--_btn-bg-color, transparent);
+    color: var(--_btn-text-color, var(--drw-color-text-primary));
+    font-size: 16px;
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:has(svg) {
+      padding-inline: var(--drw-gap-5) var(--drw-gap-3);
+
+      @media (width > 480px) {
+        padding-inline: var(--drw-gap-8) var(--drw-gap-6);
+      }
+    }
+
+    &.\+contrast {
+      --_btn-text-color: var(--drw-color-text-tertiary);
+      --_btn-border-color: currentcolor;
+    }
+
+    &.\+primary {
+      --_btn-text-color: var(--drw-color-text-tertiary);
+      --_btn-border-color: var(--drw-color-accent);
+      --_btn-bg-color: var(--drw-color-accent);
+
+      &:hover {
+        --_color-hover: color-mix(in oklab, var(--drw-color-accent), #fff 10%);
+        --_btn-border-color: var(--_color-hover);
+        --_btn-bg-color: var(--_color-hover);
+      }
+    }
+
+    &.\+primary:disabled {
+    }
+  }
+
+  .drw-button[href] {
+    font-size: 18px;
+  }
+</style>

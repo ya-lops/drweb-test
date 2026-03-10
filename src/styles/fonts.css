@@ -1,0 +1,20 @@
+@font-face {
+  font-family: 'FreeSet';
+  font-weight: 600;
+  src: url('/fonts/FreeSetDemiC.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FreeSet';
+  font-weight: 800;
+  src: url('/fonts/FreeSetExtraBoldC.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 100 900;
+  src: url('/fonts/Roboto-VariableFont.ttf') format('truetype-variations');
+  font-display: swap;
+}

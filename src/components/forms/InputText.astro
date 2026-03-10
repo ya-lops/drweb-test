@@ -1,0 +1,48 @@
+---
+export interface Props {
+  id: string;
+  label: string;
+  errorMsg?: string;
+}
+
+const { id, label, errorMsg = "Укажите данные",  ...attrs } = Astro.props;
+---
+
+<div class="drw-input">
+  <label class="_drw-input-label" for={id}>{label}</label>
+  <input class="_drw-input-el" {id} type="text">
+  <p class="_drw-input-error">{errorMsg}</p>
+</div>
+
+<style is:global>
+  .drw-input {
+    ._drw-input-label {
+      display: block;
+      font-size: 14px;
+      line-height: 1;
+      margin-bottom: var(--drw-gap-2);
+      color: var(--drw-color-text-secondary);
+    }
+
+    ._drw-input-el {
+      width: 100%;
+      /* whyy? */
+      padding: calc(var(--drw-gap-2) + 2px) var(--drw-gap-3);
+      background: var(--drw-color-bg-primary);
+      border: 1px solid var(--drw-color-line-border);
+      border-radius: var(--drw-radius-1);
+      font-size: 16px;
+      line-height: 1;
+
+      &:focus,
+      &:hover {
+        border-color: var(--drw-color-line-border-focus);
+      }
+    }
+
+    ._drw-input-error {
+      display: none;
+      margin-top: var(--drw-gap-2);
+    }
+  }
+</style>

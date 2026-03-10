@@ -1,0 +1,54 @@
+@layer classes {
+  .\+typo-h1 {
+    font-size: 64px;
+    line-height: 64px;
+    font-weight: 800;
+    font-family: var(--drw-font-family-heading);
+  }
+
+  .\+typo-h2 {
+    font-size: 40px;
+    line-height: 44px;
+    font-weight: 600;
+    font-family: var(--drw-font-family-heading);
+  }
+
+  .\+typo-h3 {
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: 600;
+    font-family: var(--drw-font-family-heading);
+  }
+
+  body,
+  .\+typo-body {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 400;
+    font-family: var(--drw-font-family-base);
+  }
+
+  .\+typo-caption {
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 400;
+  }
+
+  @media (width < 768px) {
+    .\+typo-h1 {
+      font-size: 40px;
+      line-height: 40px;
+    }
+
+    .\+typo-h2 {
+      font-size: 18px;
+      line-height: 22px;
+    }
+
+    body,
+    .\+typo-body {
+      font-size: 18px;
+      line-height: 24px;
+    }
+  }
+}
