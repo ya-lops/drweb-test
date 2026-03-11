@@ -1,7 +1,5 @@
 ---
-import Button from "../Button.astro";
-import InputCheckbox from "../forms/InputCheckbox.astro";
-import InputText from "../forms/InputText.astro";
+import FormRegistration from "../FormRegistration.astro";
 ---
 
 <section class="drw-section-registration">
@@ -10,43 +8,12 @@ import InputText from "../forms/InputText.astro";
   </header>
 
   <div class="_registration-box">
-    <form class="drw-reg-form" action="/" method="post">
-      <InputText id="reg-form-name" label="Фамилия, имя" />
-      <InputText id="reg-form-company" label="Компания" />
-      <InputText id="reg-form-job" label="Должность" />
-      <InputText id="reg-form-mail" label="E-mail" />
-      <InputText id="reg-form-phone" label="Телефон" />
-
-      <p class="_reg-form-warning-message +typo-caption">
-        Обратите внимание на правильность указания адреса электронной почты: на
-        него придет подтверждение регистрации.
-      </p>
-
-      <p class="_reg-form-message +typo-caption">
-        Все поля обязательны для заполнения!
-      </p>
-      <InputCheckbox id="reg-form-agreement-check">
-        Я даю согласие на обработку моих персональных данных в соответствии с <a
-          href="#link-to-policy">Политикой конфиденциальности</a
-        >
-      </InputCheckbox>
-      <Button variant="primary">Зарегистрироваться</Button>
-    </form>
+    <FormRegistration />
   </div>
 </section>
 
 <style is:global>
   .drw-section-registration {
-    ._registration-box {
-      padding: var(--drw-gap-12) var(--drw-gap-16);
-      background: var(--drw-color-surface-primary);
-      border-radius: var(--drw-radius-4);
-
-      @media (width < 768px) {
-        padding: var(--drw-gap-10) var(--drw-gap-6);
-      }
-    }
-
     ._registration-header {
       margin-bottom: var(--drw-gap-12);
       filter: var(--drw-filter-shadow-heading);
@@ -55,24 +22,15 @@ import InputText from "../forms/InputText.astro";
         margin-bottom: var(--drw-gap-6);
       }
     }
-  }
 
-  .drw-reg-form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--drw-gap-4);
+    ._registration-box {
+      padding: var(--drw-gap-12) var(--drw-gap-16);
+      background: var(--drw-color-surface-primary);
+      border-radius: var(--drw-radius-4);
 
-    ._reg-form-message {
-      color: var(--drw-color-text-disabled);
-    }
-
-    ._reg-form-warning-message {
-      margin-block: var(--drw-gap-4);
-      padding: var(--drw-gap-4) var(--drw-gap-6);
-      border: 1px solid var(--drw-color-status-error);
-      border-radius: 10px;
-      background-color: var(--drw-color-surface-tertiary);
-      color: var(--drw-color-text-primary);
+      @media (width < 768px) {
+        padding: var(--drw-gap-10) var(--drw-gap-6);
+      }
     }
   }
 </style>

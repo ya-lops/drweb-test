@@ -1,0 +1,62 @@
+---
+import Button from "./Button.astro";
+import InputCheckbox from "./forms/InputCheckbox.astro";
+import InputText from "./forms/InputText.astro";
+---
+
+<div x-data="formHandler()">
+  <form class="drw-reg-form" @submit.prevent="submitForm">
+    <!-- astro компонент, атрибуты сразу передаются на <input> -->
+    <InputText
+      id="reg-form-name"
+      label="Фамилия, имя"
+      x-model="form.name"
+      :class="{ 'error': errors.name }"
+    />
+    <InputText id="reg-form-company" label="Компания" />
+    <InputText id="reg-form-job" label="Должность" />
+    <InputText id="reg-form-mail" label="E-mail" />
+    <InputText id="reg-form-phone" label="Телефон" />
+
+    <!-- Выводится только после начала ввода в поле reg-form-mail -->
+    <p class="_reg-form-warning-message +typo-caption">
+      Обратите внимание на правильность указания адреса электронной почты: на
+      него придет подтверждение регистрации.
+    </p>
+
+    <p class="_reg-form-message +typo-caption">
+      Все поля обязательны для заполнения!
+    </p>
+
+    <!-- astro компонент, атрибуты сразу передаются на <input> -->
+    <InputCheckbox id="reg-form-agreement-check">
+      Я даю согласие на обработку моих персональных данных в соответствии с <a
+        href="#link-to-policy">Политикой конфиденциальности</a
+      >
+    </InputCheckbox>
+    <Button variant="primary">Зарегистрироваться</Button>
+  </form>
+</div>
+
+<style is:global>
+  .drw-reg-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--drw-gap-4);
+
+    ._reg-form-message {
+      color: var(--drw-color-text-disabled);
+    }
+
+    ._reg-form-warning-message {
+      margin-block: var(--drw-gap-4);
+      padding: var(--drw-gap-4) var(--drw-gap-6);
+      border: 1px solid var(--drw-color-status-error);
+      border-radius: 10px;
+      background-color: var(--drw-color-surface-tertiary);
+      color: var(--drw-color-text-primary);
+    }
+  }
+</style>
+
+<script is:inline></script>

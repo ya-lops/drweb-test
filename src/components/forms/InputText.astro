@@ -3,6 +3,7 @@ export interface Props {
   id: string;
   label: string;
   errorMsg?: string;
+  [key: string]: any;
 }
 
 const { id, label, errorMsg = "Укажите данные",  ...attrs } = Astro.props;
@@ -10,7 +11,7 @@ const { id, label, errorMsg = "Укажите данные",  ...attrs } = Astro
 
 <div class="drw-input">
   <label class="_input-label" for={id}>{label}</label>
-  <input class="_input-el" {id} type="text">
+  <input class="_input-el" {id} type="text" {...attrs}>
   <p class="_input-error">{errorMsg}</p>
 </div>
 
