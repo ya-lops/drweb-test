@@ -113,6 +113,8 @@
     --drw-radius-4: 15px;
     --drw-radius-25: 100px;
 
+    --drw-filter-shadow-heading: drop-shadow(0 0 15px #ffffff26);
+
     --drw-font-family-heading:
       "FreeSet", system-ui, -apple-system, BlinkMacSystemFont, Arial, Helvetica,
       "Arial Unicode MS", sans-serif;
