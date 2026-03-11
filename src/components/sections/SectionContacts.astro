@@ -1,40 +1,43 @@
 ---
-import ContentBox from "../ContentBox.astro";
 import { Image } from "astro:assets";
 import ContactsImage from "@/images/web-heart.png";
 ---
 
 <section class="drw-section-contacts">
-  <ContentBox dark>
-    <div class="_drw-section-contacts-inner">
-      <div class="_drw-section-contacts-text">
-        <header>
-          <h2 class="+typo-h3">Остались вопросы</h2>
-        </header>
-        <p>
-          Напишите нам <a href="mailto:marketing@drweb.com"
-            >marketing@drweb.com</a
-          >
-        </p>
-      </div>
-
-      <div class="_drw-section-contacts-image">
-        <Image
-          src={ContactsImage}
-          alt="Диалоговое облачко в центре которого зеленое сердце с логотипом Dr.web"
-        />
-      </div>
+  <div class="_contacts-inner">
+    <div class="_contacts-text">
+      <header>
+        <h2 class="_contacts-title">Остались вопросы?</h2>
+      </header>
+      <p>
+        Напишите нам <a href="mailto:marketing@drweb.com">marketing@drweb.com</a
+        >
+      </p>
     </div>
-  </ContentBox>
+
+    <div class="_contacts-image">
+      <Image
+        src={ContactsImage}
+        alt="Диалоговое облачко в центре которого зеленое сердце с логотипом Dr.web"
+      />
+    </div>
+  </div>
 </section>
 
 <style is:global>
   .drw-section-contacts {
-    ._drw-section-contacts-inner {
+    ._contacts-inner {
       display: flex;
       align-items: center;
       gap: var(--drw-gap-12);
+      padding: var(--drw-gap-6) var(--drw-gap-12);
+      border-radius: var(--drw-radius-4);
+      background: radial-gradient(circle at 100% 0%, #575757, #212121);
       font-weight: 500;
+
+      @media (width < 768px) {
+        padding: var(--drw-gap-8) var(--drw-gap-6);
+      }
 
       @media (width < 540px) {
         flex-direction: column;
@@ -42,7 +45,12 @@ import ContactsImage from "@/images/web-heart.png";
       }
     }
 
-    ._drw-section-contacts-text {
+    ._contacts-title {
+      font-size: 24px;
+      line-height: 30px;
+    }
+
+    ._contacts-text {
       flex: 1;
 
       header {
@@ -50,7 +58,7 @@ import ContactsImage from "@/images/web-heart.png";
       }
     }
 
-    ._drw-section-contacts-image {
+    ._contacts-image {
       flex-shrink: 0;
       filter: drop-shadow(4px 5px 12px rgba(49, 49, 49, 0.25));
 

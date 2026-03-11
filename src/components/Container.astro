@@ -15,13 +15,21 @@ const { size = "l", ...attrs } = Astro.props;
     margin-inline: auto;
 
     &.\+size-l {
-      width: min(100%, 1168px + var(--drw-gap-4) * 2);
+      width: min(100%, 1168px + var(--drw-gap-8) * 2);
       padding-inline: var(--drw-gap-4);
+
+      @media (width > 768px) {
+        padding-inline: var(--drw-gap-8);
+      }
     }
 
     &.\+size-m {
-      width: min(100%, 805px + var(--drw-gap-3) * 2);
+      width: min(100%, 568px + var(--drw-gap-3) * 2);
       padding-inline: var(--drw-gap-3);
+
+      @media (width > 768px) {
+        width: min(100%, 805px + var(--drw-gap-3) * 2);
+      }
     }
 
     &.\+size-s {

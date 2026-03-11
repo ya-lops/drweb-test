@@ -119,6 +119,16 @@
     --drw-font-family-base:
       "Roboto", system-ui, -apple-system, BlinkMacSystemFont, Arial, Helvetica,
       "Arial Unicode MS", sans-serif;
+
+    --drw-section-row-gap: var(--drw-gap-10);
+
+    @media (width > 360px) {
+      --drw-section-row-gap: var(--drw-gap-12);
+    }
+
+    @media (width > 540px) {
+      --drw-section-row-gap: var(--drw-gap-16);
+    }
   }
 }
 

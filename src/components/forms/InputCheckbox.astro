@@ -8,30 +8,30 @@ const { id, errorMsg = "Соглашайся, не пожалеешь", ...attrs
 ---
 
 <div class="drw-checkbox">
-  <div class="_drw-checkbox-inner">
-    <div class="_drw-checkbox-fakebox">
-      <input class="_drw-checkbox-el" {id} type="checkbox" />
+  <div class="_checkbox-inner">
+    <div class="_checkbox-fakebox">
+      <input class="_checkbox-el" {id} type="checkbox" />
     </div>
-    <label class="_drw-checkbox-label" for={id}>
+    <label class="_checkbox-label" for={id}>
       <slot />
     </label>
   </div>
-  <p class="_drw-checkbox-error">{errorMsg}</p>
+  <p class="_checkbox-error">{errorMsg}</p>
 </div>
 
 <style is:global>
   .drw-checkbox {
-    ._drw-checkbox-inner {
+    ._checkbox-inner {
       display: flex;
       align-items: center;
       gap: var(--drw-gap-2);
     }
 
-    ._drw-checkbox-el {
+    ._checkbox-el {
       display: none;
     }
 
-    ._drw-checkbox-fakebox {
+    ._checkbox-fakebox {
       flex-shrink: 0;
       display: flex;
       align-self: flex-start;
@@ -41,7 +41,7 @@ const { id, errorMsg = "Соглашайся, не пожалеешь", ...attrs
       border-radius: var(--drw-radius-1);
     }
 
-    & ._drw-checkbox-fakebox:has(:checked) {
+    & ._checkbox-fakebox:has(:checked) {
       position: relative;
       display: flex;
       align-items: center;
@@ -64,7 +64,7 @@ const { id, errorMsg = "Соглашайся, не пожалеешь", ...attrs
       }
     }
 
-    ._drw-checkbox-label {
+    ._checkbox-label {
       display: block;
       font-size: 14px;
       line-height: 18px;
@@ -78,11 +78,11 @@ const { id, errorMsg = "Соглашайся, не пожалеешь", ...attrs
       }
     }
 
-    &:has(._drw-checkbox-label:hover) ._drw-checkbox-fakebox:has(:not(:checked)) {
+    &:has(._checkbox-label:hover) ._checkbox-fakebox:has(:not(:checked)) {
       border-color: var(--drw-color-line-border-focus);
     }
 
-    ._drw-checkbox-error {
+    ._checkbox-error {
       display: none;
       margin-top: var(--drw-gap-2);
     }

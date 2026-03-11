@@ -40,7 +40,7 @@
       line-height: 40px;
     }
 
-    .\+typo-h2 {
+    .\+typo-h3 {
       font-size: 18px;
       line-height: 22px;
     }
@@ -49,6 +49,13 @@
     .\+typo-body {
       font-size: 18px;
       line-height: 24px;
+    }
+  }
+
+  @media (width < 640px) {
+    .\+typo-h2 {
+      font-size: 18px;
+      line-height: 22px;
     }
   }
 }

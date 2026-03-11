@@ -3,11 +3,11 @@
 ---
 
 <div class="drw-bg-changer">
-  <div class="_drw-bg-changer-layer-base"></div>
-  <div class="_drw-bg-changer-layer-highlight"></div>
-  <div class="_drw-bg-changer-layer-pulse"></div>
+  <div class="_bg-changer-layer-base"></div>
+  <div class="_bg-changer-layer-highlight"></div>
+  <div class="_bg-changer-layer-pulse"></div>
 
-  <div class="_drw-bg-changer-lava">
+  <div class="_bg-changer-lava">
     <svg
       width="902"
       height="851"
@@ -21,7 +21,7 @@
     </svg>
   </div>
 
-  <div class="_drw-bg-changer-lava +twin">
+  <div class="_bg-changer-lava +twin">
     <svg
       width="902"
       height="851"
@@ -46,7 +46,7 @@
     pointer-events: none;
     overflow: clip;
 
-    > [class*="_drw-bg-changer-layer"] {
+    > [class*="_bg-changer-layer"] {
       position: absolute;
       inset: 0;
       width: 100%;
@@ -56,18 +56,18 @@
       background-position: top center;
     }
 
-    ._drw-bg-changer-layer-base {
+    ._bg-changer-layer-base {
       background-image: url(/images/background-default.webp);
     }
 
-    ._drw-bg-changer-layer-highlight {
+    ._bg-changer-layer-highlight {
       background-image: url(/images/background-highlight.webp);
       opacity: 0;
       animation: 6s showin 4s infinite linear;
       mix-blend-mode: soft-light;
     }
 
-    ._drw-bg-changer-lava {
+    ._bg-changer-lava {
       position: absolute;
       top: 10%;
       left: 50%;
@@ -78,20 +78,17 @@
         top: 20%;
         translate: -20%;
         rotate: 60deg;
-        filter: blur(85px);
       }
 
       circle {
-        &:nth-child(1) {
-          animation: circle1 14s infinite linear;
-        }
+        animation: circle1 14s infinite linear;
 
         &:nth-child(2) {
-          animation: circle2 14s infinite linear;
+          animation-name: circle2;
         }
 
         &:nth-child(3) {
-          animation: circle3 14s infinite linear;
+          animation-name: circle3;
         }
       }
     }

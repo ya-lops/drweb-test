@@ -41,12 +41,8 @@ const socialLinks = [
 <div class="drw-social-links">
   {
     socialLinks.map(({ title, href, icon }) => (
-      <a {href} class="drw-social-link" target="_blank" {title}>
-        <img
-          src={`/images/icons/icon-${icon}.svg`}
-          alt={title}
-          class="drw-social-link-icon"
-        />
+      <a {href} class="_social-link" target="_blank" {title}>
+        <img src={`/images/icons/icon-${icon}.svg`} alt={title} />
       </a>
     ))
   }

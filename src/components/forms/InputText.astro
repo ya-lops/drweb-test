@@ -9,14 +9,14 @@ const { id, label, errorMsg = "Укажите данные",  ...attrs } = Astro
 ---
 
 <div class="drw-input">
-  <label class="_drw-input-label" for={id}>{label}</label>
-  <input class="_drw-input-el" {id} type="text">
-  <p class="_drw-input-error">{errorMsg}</p>
+  <label class="_input-label" for={id}>{label}</label>
+  <input class="_input-el" {id} type="text">
+  <p class="_input-error">{errorMsg}</p>
 </div>
 
 <style is:global>
   .drw-input {
-    ._drw-input-label {
+    ._input-label {
       display: block;
       font-size: 14px;
       line-height: 1;
@@ -24,9 +24,8 @@ const { id, label, errorMsg = "Укажите данные",  ...attrs } = Astro
       color: var(--drw-color-text-secondary);
     }
 
-    ._drw-input-el {
+    ._input-el {
       width: 100%;
-      /* whyy? */
       padding: calc(var(--drw-gap-2) + 2px) var(--drw-gap-3);
       background: var(--drw-color-bg-primary);
       border: 1px solid var(--drw-color-line-border);
@@ -40,7 +39,7 @@ const { id, label, errorMsg = "Укажите данные",  ...attrs } = Astro
       }
     }
 
-    ._drw-input-error {
+    ._input-error {
       display: none;
       margin-top: var(--drw-gap-2);
     }

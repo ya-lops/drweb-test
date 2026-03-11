@@ -6,31 +6,31 @@ import SocialLinks from "./SocialLinks.astro";
 
 <footer class="drw-footer">
   <Container>
-    <div class="_drw-footer-inner">
-      <nav class="_drw-footer-nav +typo-body">
-        <div class="_drw-footer-group">
+    <div class="_footer-inner">
+      <nav class="_footer-nav +typo-body">
+        <div class="_footer-group">
           <a href="#">Для дома</a>
           <a href="#">Для бизнеса</a>
           <a href="#">Поддержка</a>
         </div>
-        <div class="_drw-footer-group">
+        <div class="_footer-group">
           <a href="#">Пользователям</a>
           <a href="#">Партнерам</a>
           <a href="#">О компании</a>
         </div>
-        <div class="_drw-footer-group">
+        <div class="_footer-group">
           <a href="#">Контакты</a>
           <a href="#">Вакансии</a>
-          <div class="_drw-footer-socials">
+          <div class="_footer-socials">
             <SocialLinks />
           </div>
         </div>
       </nav>
 
-      <aside class="_drw-footer-links +typo-caption">
-        <div class="_drw-footer-group">
-          <div class="_drw-footer-info">
-            <div class="_drw-footer-copy">
+      <aside class="_footer-links +typo-caption">
+        <div class="_footer-group">
+          <div class="_footer-info">
+            <div class="_footer-copy">
               <FooterIcon />
               <span>© «Доктор Веб» 2003–2025</span>
             </div>
@@ -40,11 +40,11 @@ import SocialLinks from "./SocialLinks.astro";
             </p>
           </div>
         </div>
-        <div class="_drw-footer-group">
+        <div class="_footer-group">
           <a href="#">Обработка персональных данных</a>
           <a href="#">Безопасная разработка и выпуск обновлений</a>
         </div>
-        <div class="_drw-footer-group">
+        <div class="_footer-group">
           <a href="#">Политика конфиденциальности</a>
           <a href="#">Информация по требованиям Минцифры России</a>
         </div>
@@ -72,19 +72,22 @@ import SocialLinks from "./SocialLinks.astro";
       }
     }
 
-    ._drw-footer-nav {
+    ._footer-nav {
       display: flex;
-      gap: var(--drw-gap-8);
+      gap: var(--drw-gap-4) var(--drw-gap-5);
       margin-bottom: var(--drw-gap-12);
 
       @media (width < 768px) {
         flex-wrap: wrap;
-        gap: var(--drw-gap-4) var(--drw-gap-5);
         margin-bottom: var(--drw-gap-8);
+      }
+
+      @media (width > 768px) {
+        gap: var(--drw-gap-8);
       }
     }
 
-    ._drw-footer-group {
+    ._footer-group {
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -95,30 +98,30 @@ import SocialLinks from "./SocialLinks.astro";
       }
     }
 
-    ._drw-footer-links {
+    ._footer-links {
       display: flex;
       flex-wrap: wrap;
       gap: var(--drw-gap-8);
       padding-top: var(--drw-gap-4);
       border-top: 1px solid var(--drw-color-line-edge);
 
-      ._drw-footer-group {
-        gap: var(--drw-gap-3);
-
-        &:nth-child(1) {
-          @media (1024px > width > 768px) {
-            flex-basis: 100%;
-          }
-        }
-      }
-
       @media (width < 768px) {
         flex-direction: column;
         gap: var(--drw-gap-3);
       }
+
+      ._footer-group {
+        gap: var(--drw-gap-3);
+
+        &:nth-child(1) {
+          @media (1024px > width > 640px) {
+            flex-basis: 100%;
+          }
+        }
+      }
     }
 
-    ._drw-footer-copy {
+    ._footer-copy {
       display: flex;
       align-items: center;
       gap: var(--drw-gap-3);
