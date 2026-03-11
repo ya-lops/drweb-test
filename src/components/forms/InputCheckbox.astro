@@ -11,7 +11,12 @@ const { id, errorMsg = "Соглашайся, не пожалеешь", ...attrs
 <div class="drw-checkbox">
   <div class="_checkbox-inner">
     <div class="_checkbox-fakebox">
-      <input class="_checkbox-el" {id} type="checkbox" />
+      <input
+        class="_checkbox-el"
+        {id}
+        type="checkbox"
+        {...attrs}
+      />
     </div>
     <label class="_checkbox-label" for={id}>
       <slot />
@@ -86,6 +91,12 @@ const { id, errorMsg = "Соглашайся, не пожалеешь", ...attrs
     ._checkbox-error {
       display: none;
       margin-top: var(--drw-gap-2);
+    }
+
+    &:has(.\+error) ._checkbox-error {
+      display: block;
+      color: var(--drw-color-status-error);
+      font-size: 12px;
     }
   }
 </style>

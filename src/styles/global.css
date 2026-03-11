@@ -149,14 +149,15 @@
 }
 
 html {
+  scrollbar-gutter: stable;
   font-family: var(--drw-font-family-base);
 }
 
 body {
   position: relative;
-  color: var(--drw-color-text-tertiary);
   /* background-color: var(--drw-color-bg-primary-inverse); */
   background-color: #161616;
+  color: var(--drw-color-text-tertiary);
   
 }
 

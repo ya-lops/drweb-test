@@ -1,0 +1,105 @@
+---
+export interface Props {
+  id: string;
+  title: string;
+  closeBtnClick?: string;
+  [key: string]: any;
+}
+
+import CloseBtnIcon from "@/icons/close.svg";
+
+const {
+  id,
+  title,
+  closeBtnClick,
+  ...attrs
+} = Astro.props;
+---
+
+<dialog {id} class="drw-dialog" {...attrs}>
+  <header class="_dialog-header">
+    <h3 class="+typo-h3">{title}</h3>
+  </header>
+
+  {
+    closeBtnClick && (
+      <div class="_dialog-close-btn" @click={closeBtnClick}>
+        <CloseBtnIcon />
+      </div>
+    )
+  }
+
+  <div class="_dialog-content">
+    <slot />
+  </div>
+
+  <div class="_dialog-actions">
+    <slot name="actions" />
+  </div>
+</dialog>
+
+<style>
+  .drw-dialog {
+    padding: var(--drw-gap-12) var(--drw-gap-16);
+    border: 0;
+    border-radius: var(--drw-radius-4);
+    background: var(--drw-color-surface-primary);
+    width: min(100% - var(--drw-gap-4), 568px);
+    text-align: center;
+    box-shadow: 0 2px 32px #80808026;
+    transition: 0.2s;
+    transition-property: translate, opacity;
+
+    @media (width < 640px) {
+      padding: var(--drw-gap-6) var(--drw-gap-8);
+      padding-top: var(--drw-gap-12);
+    }
+
+    ._dialog-close-btn {
+      position: absolute;
+      right: var(--drw-gap-4);
+      top: var(--drw-gap-6);
+      color: var(--drw-color-icon-tertiary);
+      cursor: pointer;
+
+      &:hover {
+        color: var(--drw-color-bg-primary-inverse);
+      }
+    }
+
+    ._dialog-header {
+      margin-bottom: var(--drw-gap-2);
+    }
+
+    ._dialog-content {
+      margin-bottom: var(--drw-gap-8);
+    }
+
+    ._dialog-actions {
+      display: flex;
+      gap: var(--drw-gap-2);
+
+      > * {
+        flex: 1;
+      }
+    }
+  }
+
+  .drw-dialog[open] {
+    @starting-style {
+      translate: 0 -20px;
+      opacity: 0;
+    }
+  }
+
+  .drw-dialog {
+    &::backdrop {
+      background-color: var(--drw-color-surface-secondary);
+      opacity: 0.2;
+    }
+  }
+
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
+</style>

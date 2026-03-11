@@ -4,14 +4,15 @@ export interface Props {
   variant?: "primary" | "contrast" | "outline";
   download?: string;
   title?: string;
+  [key: string]: any;
 }
 
-const { href, variant = "primary", title } = Astro.props;
+const { href, variant = "primary", title, ...attrs } = Astro.props;
 
 const Tag = href ? "a" : "button";
 ---
 
-<Tag class:list={["drw-button", `+${variant}`]} {...href && { href }} {title}>
+<Tag class:list={["drw-button", `+${variant}`]} {...href && { href }} {title} {...attrs}>
   <span><slot /></span>
   <slot name="icon-after" />
 </Tag>

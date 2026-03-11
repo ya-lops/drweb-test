@@ -6,12 +6,12 @@ export interface Props {
   [key: string]: any;
 }
 
-const { id, label, errorMsg = "Укажите данные",  ...attrs } = Astro.props;
+const { id, label, errorMsg = "Укажите данные", ...attrs } = Astro.props;
 ---
 
 <div class="drw-input">
   <label class="_input-label" for={id}>{label}</label>
-  <input class="_input-el" {id} type="text" {...attrs}>
+  <input class="_input-el" {id} type="text" {...attrs} />
   <p class="_input-error">{errorMsg}</p>
 </div>
 
@@ -43,6 +43,16 @@ const { id, label, errorMsg = "Укажите данные",  ...attrs } = Astro
     ._input-error {
       display: none;
       margin-top: var(--drw-gap-2);
+    }
+
+    .\+error {
+      border-color: var(--drw-color-status-error);
+    }
+
+    .\+error + ._input-error {
+      display: block;
+      color: var(--drw-color-status-error);
+      font-size: 12px;
     }
   }
 </style>
