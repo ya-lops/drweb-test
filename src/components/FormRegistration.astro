@@ -11,21 +11,21 @@ import InputText from "./forms/InputText.astro";
       id="reg-form-name"
       label="Фамилия, имя"
       x-model="form.name"
-      :class="{ '+error': errors.name }"
+      :class="{ '+error': errors.name, '+filled': form.name.length }"
       @input="clearError('name')"
     />
     <InputText
       id="reg-form-company"
       label="Компания"
       x-model="form.company"
-      :class="{ '+error': errors.company }"
+      :class="{ '+error': errors.company, '+filled': form.company.length }"
       @input="clearError('company')"
     />
     <InputText
       id="reg-form-job"
       label="Должность"
       x-model="form.job"
-      :class="{ '+error': errors.job }"
+      :class="{ '+error': errors.job, '+filled': form.job.length }"
       @input="clearError('job')"
     />
     <InputText
@@ -33,14 +33,14 @@ import InputText from "./forms/InputText.astro";
       label="E-mail"
       type="email"
       x-model="form.email"
-      :class="{ '+error': errors.email }"
+      :class="{ '+error': errors.email, '+filled': form.email.length }"
       @input="clearError('email')"
     />
     <InputText
       id="reg-form-phone"
       label="Телефон"
       x-model="form.phone"
-      :class="{ '+error': errors.phone }"
+      :class="{ '+error': errors.phone, '+filled': form.phone.length }"
       @input="clearError('phone')"
     />
 
@@ -58,7 +58,7 @@ import InputText from "./forms/InputText.astro";
 
     <InputCheckbox
       id="reg-form-agreement-check"
-      :class="{ '+error': errors.agreement }"
+      :class="{ '+error': errors.agreement, '+filled': form.agreement }"
       x-model="form.agreement"
       @change="clearError('agreement')"
     >
@@ -66,7 +66,23 @@ import InputText from "./forms/InputText.astro";
         href="#link-to-policy">Политикой конфиденциальности</a
       >
     </InputCheckbox>
-    <Button variant="primary">Зарегистрироваться</Button>
+
+    <!-- Ошибка отправки -->
+    <p
+      x-show="submitError"
+      class="_submit-error +typo-caption"
+      x-text="submitError"
+    >
+    </p>
+
+    <Button variant="primary" :disabled="isSubmitting">
+      <span x-show="!isSubmitting">Зарегистрироваться</span>
+      <span x-show="isSubmitting" class="_btn-loading">
+        <span class="_spinner"></span>
+      </span>
+    </Button>
+
+    <span class="_spinner"></span>
   </form>
 
   <Dialog
@@ -76,7 +92,21 @@ import InputText from "./forms/InputText.astro";
     closeBtnClick="closeDialog"
   >
     <p>В течение 24 часов вы получите письмо с подтверждением регистрации.</p>
-    <Button slot="actions" variant="primary" @click="closeDialog"> Хорошо </Button>
+    <Button slot="actions" variant="primary" @click="closeDialog">
+      Хорошо
+    </Button>
+  </Dialog>
+
+  <Dialog
+    id="sentErrorDialog"
+    x-ref="sentErrorDialog"
+    title="Что-то пошло не так"
+    closeBtnClick="closeDialog"
+  >
+    <p>Перезагрузите страницу или зайдите позже</p>
+    <Button slot="actions" variant="primary" @click="closeDialog">
+      Хорошо
+    </Button>
   </Dialog>
 </div>
 
@@ -97,7 +127,7 @@ import InputText from "./forms/InputText.astro";
       border-radius: 10px;
       background-color: var(--drw-color-surface-tertiary);
       color: var(--drw-color-text-primary);
-      transition: .25s;
+      transition: 0.25s;
       transition-property: translate, opacity;
 
       @starting-style {
@@ -105,9 +135,45 @@ import InputText from "./forms/InputText.astro";
         opacity: 0;
       }
     }
+
+    /* Стили для кнопки при загрузке */
+    button[disabled] {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    ._btn-loading {
+      display: flex;
+      align-items: center;
+      gap: var(--drw-gap-2);
+    }
+
+    ._spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--drw-color-bg-primary);
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    /* Сообщение об ошибке отправки */
+    ._submit-error {
+      padding: var(--drw-gap-3) var(--drw-gap-4);
+      background-color: var(--drw-color-status-error);
+      color: white;
+      border-radius: var(--drw-radius-1);
+      font-size: 14px;
+      text-align: center;
+    }
   }
 
-  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
 </style>
 
 <script is:inline>
@@ -122,6 +188,8 @@ import InputText from "./forms/InputText.astro";
         agreement: false,
       },
       errors: {},
+      isSubmitting: false,
+      submitError: null,
 
       clearError(fieldName) {
         if (this.errors[fieldName]) {
@@ -129,27 +197,108 @@ import InputText from "./forms/InputText.astro";
         }
       },
 
+      validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+      },
+
+      validatePhone(phone) {
+        // Российский номер: +7, 8, или 10-11 цифр
+        const re = /^(\+7|8)[\d\s\-\(\)]{9,11}$/;
+        const digits = phone.replace(/\D/g, "");
+        return digits.length >= 10 && digits.length <= 11;
+      },
+
       validateForm() {
         const newErrors = {};
 
-        // Проверка всех полей на заполнение
-        if (!this.form.name.trim()) newErrors.name = true;
-        if (!this.form.company.trim()) newErrors.company = true;
-        if (!this.form.job.trim()) newErrors.job = true;
-        if (!this.form.email.trim()) newErrors.email = true;
-        if (!this.form.phone.trim()) newErrors.phone = true;
-        if (!this.form.agreement) newErrors.agreement = true;
+        // Проверка имени (минимум 2 символа)
+        if (!this.form.name.trim()) {
+          newErrors.name = "Укажите ФИО";
+        } else if (this.form.name.trim().length < 2) {
+          newErrors.name = "Слишком короткое имя";
+        }
+
+        // Проверка компании
+        if (!this.form.company.trim()) {
+          newErrors.company = "Укажите название компании";
+        }
+
+        // Проверка должности
+        if (!this.form.job.trim()) {
+          newErrors.job = "Укажите должность";
+        }
+
+        // Проверка email
+        if (!this.form.email.trim()) {
+          newErrors.email = "Укажите e-mail";
+        } else if (!this.validateEmail(this.form.email)) {
+          newErrors.email = "Некорректный e-mail";
+        }
+
+        // Проверка телефона
+        if (!this.form.phone.trim()) {
+          newErrors.phone = "Укажите телефон";
+        } else if (!this.validatePhone(this.form.phone)) {
+          newErrors.phone = "Некорректный номер телефона";
+        }
+
+        // Проверка согласия
+        if (!this.form.agreement) {
+          newErrors.agreement = "Необходимо согласие на обработку данных";
+        }
 
         this.errors = newErrors;
 
         return Object.keys(newErrors).length === 0;
       },
 
-      submitForm() {
-        if (this.validateForm()) {
+      async submitForm() {
+        this.submitError = null;
+
+        if (!this.validateForm()) {
+          const firstError = document.querySelector(
+            ".\\+error",
+          );
+          if (firstError) {
+            firstError.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+          return;
+        }
+
+        this.isSubmitting = true;
+
+        try {
+          await this.fakeSubmit();
+
           this.$refs.successDialog.showModal();
           this.resetForm();
+        } catch (error) {
+          this.$refs.sentErrorDialog.showModal();
+        } finally {
+          this.isSubmitting = false;
         }
+      },
+
+      async fakeSubmit() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            if (Math.random() > 0.5) {
+              console.log("Отправленные данные:", {
+                name: this.form.name,
+                company: this.form.company,
+                job: this.form.job,
+                email: this.form.email,
+                phone: this.form.phone,
+                agreement: this.form.agreement,
+                timestamp: new Date().toISOString(),
+              });
+              resolve(true);
+            } else {
+              reject(new Error("Server error"));
+            }
+          }, 1500);
+        });
       },
 
       resetForm() {
@@ -165,7 +314,12 @@ import InputText from "./forms/InputText.astro";
       },
 
       closeDialog() {
-        this.$refs.successDialog.close();
+        if (this.$refs.successDialog) {
+          this.$refs.successDialog.close();
+        }
+        if (this.$refs.sentErrorDialog) {
+          this.$refs.sentErrorDialog.close();
+        }
       },
     };
   }

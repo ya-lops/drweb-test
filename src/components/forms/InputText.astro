@@ -39,13 +39,17 @@ const { id, label, type = "text", errorMsg = "Укажите данные", ...a
 
       &:focus,
       &:hover {
-        border-color: var(--drw-color-line-border-focus);
+        border-color: var(--drw-color-accent);
       }
     }
 
     ._input-error {
       display: none;
       margin-top: var(--drw-gap-2);
+    }
+
+    .\+filled {
+      border-color: var(--drw-color-line-border-focus);
     }
 
     .\+error {
