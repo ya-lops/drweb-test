@@ -12,30 +12,36 @@ import InputText from "./forms/InputText.astro";
       label="Фамилия, имя"
       x-model="form.name"
       :class="{ '+error': errors.name }"
+      @input="clearError('name')"
     />
     <InputText
       id="reg-form-company"
       label="Компания"
       x-model="form.company"
       :class="{ '+error': errors.company }"
+      @input="clearError('company')"
     />
     <InputText
       id="reg-form-job"
       label="Должность"
       x-model="form.job"
       :class="{ '+error': errors.job }"
+      @input="clearError('job')"
     />
     <InputText
       id="reg-form-mail"
       label="E-mail"
+      type="email"
       x-model="form.email"
       :class="{ '+error': errors.email }"
+      @input="clearError('email')"
     />
     <InputText
       id="reg-form-phone"
       label="Телефон"
       x-model="form.phone"
       :class="{ '+error': errors.phone }"
+      @input="clearError('phone')"
     />
 
     <p
@@ -54,6 +60,7 @@ import InputText from "./forms/InputText.astro";
       id="reg-form-agreement-check"
       :class="{ '+error': errors.agreement }"
       x-model="form.agreement"
+      @change="clearError('agreement')"
     >
       Я даю согласие на обработку моих персональных данных в соответствии с <a
         href="#link-to-policy">Политикой конфиденциальности</a
@@ -116,6 +123,12 @@ import InputText from "./forms/InputText.astro";
       },
       errors: {},
 
+      clearError(fieldName) {
+        if (this.errors[fieldName]) {
+          delete this.errors[fieldName];
+        }
+      },
+
       validateForm() {
         const newErrors = {};
 
@@ -129,13 +142,11 @@ import InputText from "./forms/InputText.astro";
 
         this.errors = newErrors;
 
-        // console.log("errors");
         return Object.keys(newErrors).length === 0;
       },
 
       submitForm() {
         if (this.validateForm()) {
-          // console.log("success");
           this.$refs.successDialog.showModal();
           this.resetForm();
         }

@@ -5,24 +5,20 @@ export interface Props {
   [key: string]: any;
 }
 
-const { id, errorMsg = "Соглашайся, не пожалеешь", ...attrs } = Astro.props;
+const { id, errorMsg = "Требуется ваше согласие", ...attrs } = Astro.props;
 ---
 
 <div class="drw-checkbox">
   <div class="_checkbox-inner">
-    <div class="_checkbox-fakebox">
-      <input
-        class="_checkbox-el"
-        {id}
-        type="checkbox"
-        {...attrs}
-      />
-    </div>
     <label class="_checkbox-label" for={id}>
-      <slot />
+      <input class="_checkbox-el" {id} type="checkbox" {...attrs} />
+      <div class="_checkbox-fakebox"></div>
+      <span>
+        <slot />
+      </span>
     </label>
   </div>
-  <p class="_checkbox-error">{errorMsg}</p>
+  <p class="_checkbox-error +form-error-message +typo-caption">{errorMsg}</p>
 </div>
 
 <style is:global>
@@ -30,7 +26,6 @@ const { id, errorMsg = "Соглашайся, не пожалеешь", ...attrs
     ._checkbox-inner {
       display: flex;
       align-items: center;
-      gap: var(--drw-gap-2);
     }
 
     ._checkbox-el {
@@ -45,9 +40,10 @@ const { id, errorMsg = "Соглашайся, не пожалеешь", ...attrs
       height: 16px;
       border: 1px solid var(--drw-color-line-border);
       border-radius: var(--drw-radius-1);
+      transition: border-color .25s;
     }
 
-    & ._checkbox-fakebox:has(:checked) {
+    & ._checkbox-el:checked + ._checkbox-fakebox {
       position: relative;
       display: flex;
       align-items: center;
@@ -58,7 +54,7 @@ const { id, errorMsg = "Соглашайся, не пожалеешь", ...attrs
       border-color: var(--drw-color-accent);
 
       &::before {
-        content: '';
+        content: "";
         top: 0;
         left: 0;
         width: 6px;
@@ -67,11 +63,19 @@ const { id, errorMsg = "Соглашайся, не пожалеешь", ...attrs
         border-right: 2px solid var(--drw-color-bg-primary);
         rotate: 45deg;
         translate: 0 -10%;
+        transition: 0.25s;
+        transition-property: opacity, scale;
+
+        @starting-style {
+          opacity: 0;
+          scale: 0.7;
+        }
       }
     }
 
     ._checkbox-label {
-      display: block;
+      display: flex;
+      gap: var(--drw-gap-2);
       font-size: 14px;
       line-height: 18px;
       margin-bottom: var(--drw-gap-2);
@@ -82,10 +86,12 @@ const { id, errorMsg = "Соглашайся, не пожалеешь", ...attrs
       a {
         color: inherit;
       }
-    }
 
-    &:has(._checkbox-label:hover) ._checkbox-fakebox:has(:not(:checked)) {
-      border-color: var(--drw-color-line-border-focus);
+      &:hover {
+        ._checkbox-fakebox {
+          border-color: var(--drw-color-accent);
+        }
+      }
     }
 
     ._checkbox-error {
@@ -95,8 +101,9 @@ const { id, errorMsg = "Соглашайся, не пожалеешь", ...attrs
 
     &:has(.\+error) ._checkbox-error {
       display: block;
+      margin-top: 0;
+      margin-left: calc(16px + var(--drw-gap-2));
       color: var(--drw-color-status-error);
-      font-size: 12px;
     }
   }
 </style>

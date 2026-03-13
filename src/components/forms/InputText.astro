@@ -2,17 +2,18 @@
 export interface Props {
   id: string;
   label: string;
+  type?: 'text' | 'email';
   errorMsg?: string;
   [key: string]: any;
 }
 
-const { id, label, errorMsg = "Укажите данные", ...attrs } = Astro.props;
+const { id, label, type = "text", errorMsg = "Укажите данные", ...attrs } = Astro.props;
 ---
 
 <div class="drw-input">
   <label class="_input-label" for={id}>{label}</label>
-  <input class="_input-el" {id} type="text" {...attrs} />
-  <p class="_input-error">{errorMsg}</p>
+  <input class="_input-el" {id} {type} {...attrs} />
+  <p class="_input-error +form-error-message +typo-caption">{errorMsg}</p>
 </div>
 
 <style is:global>
@@ -33,6 +34,8 @@ const { id, label, errorMsg = "Укажите данные", ...attrs } = Astro.
       border-radius: var(--drw-radius-1);
       font-size: 16px;
       line-height: 1;
+      transition: .25s;
+      transition-property: border-color;
 
       &:focus,
       &:hover {
@@ -52,7 +55,6 @@ const { id, label, errorMsg = "Укажите данные", ...attrs } = Astro.
     .\+error + ._input-error {
       display: block;
       color: var(--drw-color-status-error);
-      font-size: 12px;
     }
   }
 </style>
