@@ -171,7 +171,7 @@ a:not([class]) {
 
 /* указаний по этому поводу не увидел */
 input[type="text"],
-input[type="email"]
+input[type="email"],
 button {
   outline: none;
 }
