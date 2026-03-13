@@ -6,7 +6,7 @@ import InputText from "./forms/InputText.astro";
 ---
 
 <div x-data="registrationForm()">
-  <form class="drw-reg-form" @submit.prevent="submitForm">
+  <form class="drw-reg-form" @submit.prevent="submitForm" novalidate>
     <InputText
       id="reg-form-name"
       label="Фамилия, имя"
@@ -32,6 +32,7 @@ import InputText from "./forms/InputText.astro";
       id="reg-form-mail"
       label="E-mail"
       type="email"
+      errorField="email"
       x-model="form.email"
       :class="{ '+error': errors.email, '+filled': form.email.length }"
       @input="clearError('email')"
@@ -58,6 +59,7 @@ import InputText from "./forms/InputText.astro";
 
     <InputCheckbox
       id="reg-form-agreement-check"
+      errorField="agreement"
       :class="{ '+error': errors.agreement, '+filled': form.agreement }"
       x-model="form.agreement"
       @change="clearError('agreement')"
@@ -203,7 +205,6 @@ import InputText from "./forms/InputText.astro";
       },
 
       validatePhone(phone) {
-        // Российский номер: +7, 8, или 10-11 цифр
         const re = /^(\+7|8)[\d\s\-\(\)]{9,11}$/;
         const digits = phone.replace(/\D/g, "");
         return digits.length >= 10 && digits.length <= 11;
@@ -212,40 +213,35 @@ import InputText from "./forms/InputText.astro";
       validateForm() {
         const newErrors = {};
 
-        // Проверка имени (минимум 2 символа)
         if (!this.form.name.trim()) {
-          newErrors.name = "Укажите ФИО";
+          newErrors.name = "Укажите данные";
         } else if (this.form.name.trim().length < 2) {
           newErrors.name = "Слишком короткое имя";
         }
 
-        // Проверка компании
         if (!this.form.company.trim()) {
-          newErrors.company = "Укажите название компании";
+          newErrors.company = "Укажите данные";
         }
 
-        // Проверка должности
         if (!this.form.job.trim()) {
-          newErrors.job = "Укажите должность";
+          newErrors.job = "Укажите данные";
         }
 
-        // Проверка email
         if (!this.form.email.trim()) {
-          newErrors.email = "Укажите e-mail";
+          newErrors.email = "Укажите данные";
         } else if (!this.validateEmail(this.form.email)) {
           newErrors.email = "Некорректный e-mail";
         }
 
-        // Проверка телефона
         if (!this.form.phone.trim()) {
-          newErrors.phone = "Укажите телефон";
+          newErrors.phone = "Укажите данные";
         } else if (!this.validatePhone(this.form.phone)) {
           newErrors.phone = "Некорректный номер телефона";
         }
 
         // Проверка согласия
         if (!this.form.agreement) {
-          newErrors.agreement = "Необходимо согласие на обработку данных";
+          newErrors.agreement = "Необходимо согласие";
         }
 
         this.errors = newErrors;
@@ -291,7 +287,6 @@ import InputText from "./forms/InputText.astro";
                 email: this.form.email,
                 phone: this.form.phone,
                 agreement: this.form.agreement,
-                timestamp: new Date().toISOString(),
               });
               resolve(true);
             } else {

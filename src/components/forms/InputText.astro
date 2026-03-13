@@ -4,16 +4,22 @@ export interface Props {
   label: string;
   type?: 'text' | 'email';
   errorMsg?: string;
+  errorField?: string;
   [key: string]: any;
 }
 
-const { id, label, type = "text", errorMsg = "Укажите данные", ...attrs } = Astro.props;
+const { id, label, type = "text", errorMsg = "Укажите данные", errorField, ...attrs } = Astro.props;
+
+const fieldName = errorField || id.replace('reg-form-', '');
 ---
 
 <div class="drw-input">
   <label class="_input-label" for={id}>{label}</label>
   <input class="_input-el" {id} {type} {...attrs} />
-  <p class="_input-error +form-error-message +typo-caption">{errorMsg}</p>
+  <p 
+    class="_input-error +form-error-message +typo-caption" 
+    x-text={`errors.${fieldName} || '${errorMsg}'`}
+  ></p>
 </div>
 
 <style is:global>
@@ -58,7 +64,6 @@ const { id, label, type = "text", errorMsg = "Укажите данные", ...a
 
     .\+error + ._input-error {
       display: block;
-      color: var(--drw-color-status-error);
     }
   }
 </style>

@@ -176,6 +176,7 @@ button {
 }
 
 .\+form-error-message {
+  color: var(--drw-color-status-error);
   transition:
     opacity 0.25s,
     translate 0.25s;

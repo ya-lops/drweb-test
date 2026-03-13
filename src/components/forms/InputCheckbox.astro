@@ -2,10 +2,19 @@
 export interface Props {
   id: string;
   errorMsg?: string;
+  errorField?: string;
   [key: string]: any;
 }
 
-const { id, errorMsg = "Требуется ваше согласие", ...attrs } = Astro.props;
+const {
+  id,
+  errorMsg = "Требуется ваше согласие",
+  errorField,
+  ...attrs
+} = Astro.props;
+
+// Имя поля для ошибки (по умолчанию извлекаем из id)
+const fieldName = errorField || id.replace("reg-form-", "");
 ---
 
 <div class="drw-checkbox">
@@ -18,7 +27,11 @@ const { id, errorMsg = "Требуется ваше согласие", ...attrs 
       </span>
     </label>
   </div>
-  <p class="_checkbox-error +form-error-message +typo-caption">{errorMsg}</p>
+  <p
+    class="_checkbox-error +form-error-message +typo-caption"
+    x-text={`errors.${fieldName} || '${errorMsg}'`}
+  >
+  </p>
 </div>
 
 <style is:global>
@@ -40,7 +53,7 @@ const { id, errorMsg = "Требуется ваше согласие", ...attrs 
       height: 16px;
       border: 1px solid var(--drw-color-line-border);
       border-radius: var(--drw-radius-1);
-      transition: border-color .25s;
+      transition: border-color 0.25s;
     }
 
     & ._checkbox-el:checked + ._checkbox-fakebox {
@@ -103,7 +116,6 @@ const { id, errorMsg = "Требуется ваше согласие", ...attrs 
       display: block;
       margin-top: 0;
       margin-left: calc(16px + var(--drw-gap-2));
-      color: var(--drw-color-status-error);
     }
   }
 </style>
